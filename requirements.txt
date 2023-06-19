@@ -9,3 +9,4 @@ matplotlib
 yellowbrick
 wordcloud
 fastapi
+numba

@@ -4,6 +4,7 @@ from transformers import BertTokenizer, DataCollatorWithPadding, TrainingArgumen
 from sbert import SBertModel
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
+from numba import cuda
 
 from config import Config
 from functions import load_data
@@ -43,6 +44,9 @@ for label_id, label in enumerate(labels):
     model.config.label2id[label] = label_id
 
 model.save_pretrained(Config.MODEL_PATH)
+
+device = cuda.get_current_device()
+device.reset()
 
 test_predictions = model(
     input_ids = test_data_tokenized["input_ids"],

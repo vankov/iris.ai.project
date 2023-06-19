@@ -6,9 +6,9 @@ class Config:
     #Explorative random seed for reproducibility
     EXPLORATIVE_SAMPLE_SEED = 42
     #Number of documents to use for training the categorization model
-    CATEGORIZATION_SAMPLE_SIZE = 1000
+    CATEGORIZATION_SAMPLE_SIZE = 3000
     #Categorization random seed for reproducibility
-    CATEGORIZATION_SAMPLE_SEED = 42
+    CATEGORIZATION_SAMPLE_SEED = 22
     #Name of the Sbert model to use
     SBERT_MODEL = "sentence-transformers/bert-base-nli-mean-tokens"
     #Random seed for the clustering model
@@ -22,6 +22,6 @@ class Config:
     #Learning rate used in training
     LEARNING_RATE = 0.00001
     #Number of epochs to train
-    TRAIN_EPOCHS_N = 3
+    TRAIN_EPOCHS_N = 5
     #Batch size during training
-    BATCH_SIZE = 16
+    BATCH_SIZE = 8
