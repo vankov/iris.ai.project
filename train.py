@@ -4,7 +4,6 @@ from transformers import BertTokenizer, DataCollatorWithPadding, TrainingArgumen
 from sbert import SBertModel
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
-from numba import cuda
 
 from config import Config
 from functions import load_data
@@ -20,7 +19,6 @@ model = SBertModel.from_pretrained(Config.SBERT_MODEL, num_labels=len(labels))
 (train_data, test_data) = train_test_split(data, train_size=Config.TRAIN_TEST_SPLIT)
 
 train_data_tokenized = tokenizer(list(train_data["abstract_summary"].values), return_tensors="tf", padding=True, truncation=True)
-test_data_tokenized = tokenizer(list(test_data["abstract_summary"].values), return_tensors="tf", padding=True, truncation=True)
 
 train_dataset = tf.data.Dataset.from_tensor_slices(
     {
@@ -43,19 +41,27 @@ for label_id, label in enumerate(labels):
     model.config.id2label[label_id] = label
     model.config.label2id[label] = label_id
 
+print("Training completed.")
+
+print("Saving the model...", end="")
 model.save_pretrained(Config.MODEL_PATH)
+print("Done.")
 
-device = cuda.get_current_device()
-device.reset()
+print("Evaluating the model...")
 
-test_predictions = model(
-    input_ids = test_data_tokenized["input_ids"],
-    attention_mask = test_data_tokenized["attention_mask"],
-    token_type_ids = test_data_tokenized["token_type_ids"])
+test_data_tokenized = tokenizer(list(test_data["abstract_summary"].values), return_tensors="tf", padding=True, truncation=True)
 
-test_predicted_labels = tf.argmax(test_predictions.logits, axis=-1).numpy()
+test_predicted_labels = []
+
+for batch in range(0, len(test_data_tokenized["input_ids"]), Config.BATCH_SIZE):
+    logits = model(
+        input_ids = test_data_tokenized["input_ids"][batch:batch + Config.BATCH_SIZE],
+        attention_mask = test_data_tokenized["attention_mask"][batch:batch + Config.BATCH_SIZE],
+        token_type_ids = test_data_tokenized["token_type_ids"][batch:batch + Config.BATCH_SIZE]).logits
+    test_predicted_labels.extend(tf.argmax(logits, axis=-1).numpy())
+
 test_target_labels = list(map(lambda x: labels.index(x), test_data.iris_category.values))
 
-report = classification_report(test_predicted_labels, test_target_labels, target_names=labels)
+report = classification_report(test_target_labels, test_predicted_labels, target_names=labels)
 
 print(report)

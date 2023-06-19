@@ -22,6 +22,6 @@ class Config:
     #Learning rate used in training
     LEARNING_RATE = 0.00001
     #Number of epochs to train
-    TRAIN_EPOCHS_N = 5
+    TRAIN_EPOCHS_N = 3
     #Batch size during training
     BATCH_SIZE = 8
