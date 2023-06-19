@@ -15,7 +15,7 @@ quantum, state, field, model, system, phase, magnetic, result, show, energy, mag
 
 A visal representation of the most informative words per cluster:
 
-![image](https://github.com/vankov/iris.ai.project/assets/6031570/b6844a9c-b088-4f37-995f-49eea1f03a85)
+![image](https://github.com/vankov/iris.ai.project/assets/6031570/a22ee826-d85d-4adc-96cf-8c1d4b72bc3b)
 
 
 References:
@@ -27,7 +27,7 @@ Erkan, G., & Radev, D. R. (2004). LexRank: Graph-based Lexical Centrality as Sal
 McInnes, L,& Healy, J, UMAP (2018). Uniform Manifold Approximation and Projection for Dimension Reduction. https://arxiv.org/abs/1802.03426 
 
 Reimers, N., & Gurevych, I. (11 2019). Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing. https://arxiv.org/abs/1908.10084
-![image](https://github.com/vankov/iris.ai.project/assets/6031570/a22ee826-d85d-4adc-96cf-8c1d4b72bc3b)
+
 
 
 
