@@ -1,4 +1,4 @@
-Overview of the project
+**Project overview**
 
 The goals of this project are twofold. First, we need to identify the optimil number of categories that arxiv scientific abstracts can be grouped into. Importantly, we should not make use of the axriv category tag provided for each document, but the abstract text only. The problem of finding clusters of similar words or text is also known as topic modelling. A brief overview of the research literature suggests that the most widely used methods are based on Latent Dirichlet allocation (LDA, e.g. Blei, 2012) applied to operating on word freqquincies. The disadvantage of LDA is that there is no widely accepting method or practice for determinig the optimal number of topics/clusters and that the method id computationally intensive. I therefore decided to proceed with a simpler method - k-means clusterring applied to texts vectorized using TF-IDF and the UMAP dimensionality reduction algorithm (McInnes & Healy, 2018). The explorative analysis of a random sample of 10000 documents revealed five main clusters described by the following words and bigrams:
 
