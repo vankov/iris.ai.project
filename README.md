@@ -1,4 +1,3 @@
-Project description
 Overview of the project
 
 The goals of this project are twofold. First, we need to identify the optimil number of categories that arxiv scientific abstracts can be grouped into. Importantly, we should not make use of the axriv category tag provided for each document, but the abstract text only. The problem of finding clusters of similar words or text is also known as topic modelling. A brief overview of the research literature suggests that the most widely used methods are based on Latent Dirichlet allocation (LDA, e.g. Blei, 2012) applied to operating on word freqquincies. The disadvantage of LDA is that there is no widely accepting method or practice for determinig the optimal number of topics/clusters and that the method id computationally intensive. I therefore decided to proceed with a simpler method - k-means clusterring applied to texts vectorized using TF-IDF and the UMAP dimensionality reduction algorithm (McInnes & Healy, 2018). The explorative analysis of a random sample of 10000 documents revealed five main clusters described by the following words and bigrams:
@@ -17,6 +16,19 @@ A visal representation of the most informative words per cluster:
 
 ![image](https://github.com/vankov/iris.ai.project/assets/6031570/a22ee826-d85d-4adc-96cf-8c1d4b72bc3b)
 
+Looking at the the words describing the contents of each cluster we can come with the following five categories (topics): mathematics, astrophysics, machine learning, theoretical physics/general relativity, quantum physics
+
+More information about the solution of the clustering task can be found in the notebook ExploratoryAnalysis.ipynb
+
+The second part of the project requires to train a classifier of research abstracts. The definition of this task doesn't make clear what data can or can not be used to accomplish it. A possible intepretation of the requirement is that we need to use to clustering model from the previous task to classify abstracts. Another way to look at the task is to use the category tags present in the arxiv data to annotate the abstarcts. I decided to the second way by selecting a number of arxiv category tags which can be used to assign a document in one of the categories identified in the previous task. To train a classifier, I first annotated the data set using the category tags present in the arxiv metedata.
+
+During the last few years. The transformer architecture has established as the state-of-the-art approach for (almost) any natural language processing (NLP) task, including text classification. A typical way to do text classification with transformers is to apply a linear classifier to the avrage token embeddings (for example, this is what BertForSequenceClassification does in the transformers library). However this approach may not work well due to at least two reasons. First, averaging the vector representations of multiple words leads to loss of information. The problem is particularly acute when the text consists of more than a few words. Second, transformer models have a hard limit on the number of tokens they can process (e.g. Bert "base" models are limited to 512 tokens) and abstracts of research articles can be longer. To address the first problem, I suggest using a modification of the Bert model, known as SentenceBert (Reimers & Gurevych, 2019) which is specifically fine-tuned to provide adequate representations of whole sentences, rather than just words. The solution to the second problem is to summarize research abstracts into a single sentence using the LexRank algorithm (Erkan & Radev, 2014) and SBert sentence embeddings. Given a set of sentences, the LexRank algorithm selects the sentence which is most similar to all the others by applying an iterative procedure.
+
+Due to time constraints and lack of computational resources, I trained the text classification model on random sample of just 1000 documents.
+
+The results for each category are displayed below:
+
+![image](https://github.com/vankov/iris.ai.project/assets/6031570/8b5af743-dced-42e8-a73d-9313b1f6313c)
 
 References:
 
@@ -27,15 +39,3 @@ Erkan, G., & Radev, D. R. (2004). LexRank: Graph-based Lexical Centrality as Sal
 McInnes, L,& Healy, J, UMAP (2018). Uniform Manifold Approximation and Projection for Dimension Reduction. https://arxiv.org/abs/1802.03426 
 
 Reimers, N., & Gurevych, I. (11 2019). Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing. https://arxiv.org/abs/1908.10084
-
-
-
-
-
-![image](https://github.com/vankov/iris.ai.project/assets/6031570/8b5af743-dced-42e8-a73d-9313b1f6313c)
-
-Cluster #0: ['math', 'cs', 'hep-th', 'math-ph', 'cond-mat']
-Cluster #1: ['astro-ph', 'physics', 'gr-qc', 'math', 'cond-mat']
-Cluster #2: ['cs', 'math', 'stat', 'physics', 'eess']
-Cluster #3: ['hep-ph', 'hep-th', 'astro-ph', 'gr-qc', 'hep-ex']
-Cluster #4: ['cond-mat', 'physics', 'quant-ph', 'math', 'astro-ph']
