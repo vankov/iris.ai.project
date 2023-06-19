@@ -1,0 +1,11 @@
+tensorflow>=2.7.0
+pandas
+transformers>=4.20.0
+sklearn
+nltk
+numpy
+umap
+matplotlib
+yellowbrick
+wordcloud
+fastapi
