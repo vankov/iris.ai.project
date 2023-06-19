@@ -24,11 +24,28 @@ The second part of the project requires to train a classifier of research abstra
 
 During the last few years. The transformer architecture has established as the state-of-the-art approach for (almost) any natural language processing (NLP) task, including text classification. A typical way to do text classification with transformers is to apply a linear classifier to the avrage token embeddings (for example, this is what BertForSequenceClassification does in the transformers library). However this approach may not work well due to at least two reasons. First, averaging the vector representations of multiple words leads to loss of information. The problem is particularly acute when the text consists of more than a few words. Second, transformer models have a hard limit on the number of tokens they can process (e.g. Bert "base" models are limited to 512 tokens) and abstracts of research articles can be longer. To address the first problem, I suggest using a modification of the Bert model, known as SentenceBert (Reimers & Gurevych, 2019) which is specifically fine-tuned to provide adequate representations of whole sentences, rather than just words. The solution to the second problem is to summarize research abstracts into a single sentence using the LexRank algorithm (Erkan & Radev, 2014) and SBert sentence embeddings. Given a set of sentences, the LexRank algorithm selects the sentence which is most similar to all the others by applying an iterative procedure.
 
-Due to time constraints and lack of computational resources, I trained the text classification model on random sample of just 1000 documents.
+Due to time constraints and lack of computational resources, I trained the text classification model on random sample of just 1000 documents, 200 of which were used for validation only
 
-The results for each category are displayed below:
+The results of running the model on the validation set are displayed below:
 
 ![image](https://github.com/vankov/iris.ai.project/assets/6031570/8b5af743-dced-42e8-a73d-9313b1f6313c)
+
+Apparently the results are far from perfect, but this is not suprising given that the the model was trained in a tiny subest of the available data.
+
+Source code description:
+config.py - contains all the constants (e.g. filenames, sample sizes, seeds, etc) used throughout the project
+process_data.py
+process_data.py - prepares the data for categorization - annotates documents with the desired category and summarizes the abstracts using SBert and LexRank
+train.py - trains the categorization model
+api.py - a simple rest API which demonstrates how the model can be used for inference. If you have uvicorn, you can run it by typing 'uvicorn api:app' in the comamand line
+
+TODO:
+1. Run the clustering analysis with a larger sample
+2. Explore other clustering/topic modelling algorithsm, including LDA
+3. Explore a range of values for the text classification model hyperparameters, such as learning rate, batch size and (perhaps most importantly) other SBert models.
+4. It is also woth trying how the model works if the weights of the main Bert model are frozen and only the classifier is trained (i.e. do transfer learning). Given that SBert (supposedly) provides adequate representations of whole sentences, this could happen to work well.
+5. Currently, the SBert model is run twice during inference - once for summarization and then again to predict the category. This can be optimized, we can get the embedding of the selected sentence from the first run and the classifier directly on it.
+6. A Dockerfile to user run all the stages of the model
 
 References:
 
