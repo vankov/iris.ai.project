@@ -45,7 +45,8 @@ TODO:
 3. Explore a range of values for the text classification model hyperparameters, such as learning rate, batch size and (perhaps most importantly) other SBert models.
 4. It is also woth trying how the model works if the weights of the main Bert model are frozen and only the classifier is trained (i.e. do transfer learning). Given that SBert (supposedly) provides adequate representations of whole sentences, this could happen to work well.
 5. Currently, the SBert model is run twice during inference - once for summarization and then again to predict the category. This can be optimized, we can get the embedding of the selected sentence from the first run and the classifier directly on it.
-6. A Dockerfile to user run all the stages of the model
+6. The training procedure has to be changed to the load data through a generator rather than converting it to tensorflow tensors and then loading all of them at once in memory
+7. A Dockerfile to user run all the stages of the model
 
 References:
 
