@@ -30,7 +30,7 @@ The results of running the model on the validation set are displayed below:
 
 ![image](https://github.com/vankov/iris.ai.project/assets/6031570/8b5af743-dced-42e8-a73d-9313b1f6313c)
 
-Apparently the results are far from perfect, but this is not suprising given that the the model was trained in a tiny subest of the available data.
+Apparently the results are far from perfect, but this is not suprising given that the the model was trained in a tiny subest of the available data. The "quantum physics" category is undersampled and no intance of it is even present in the validation set.
 
 Source code description:
 config.py - contains all the constants (e.g. filenames, sample sizes, seeds, etc) used throughout the project
@@ -41,12 +41,13 @@ api.py - a simple rest API which demonstrates how the model can be used for infe
 
 TODO:
 1. Run the clustering analysis with a larger sample
-2. Explore other clustering/topic modelling algorithsm, including LDA
-3. Explore a range of values for the text classification model hyperparameters, such as learning rate, batch size and (perhaps most importantly) other SBert models.
-4. It is also woth trying how the model works if the weights of the main Bert model are frozen and only the classifier is trained (i.e. do transfer learning). Given that SBert (supposedly) provides adequate representations of whole sentences, this could happen to work well.
-5. Currently, the SBert model is run twice during inference - once for summarization and then again to predict the category. This can be optimized, we can get the embedding of the selected sentence from the first run and the classifier directly on it.
-6. The training procedure has to be changed to the load data through a generator rather than converting it to tensorflow tensors and then loading all of them at once in memory
-7. A Dockerfile to user run all the stages of the model
+3. Explore other clustering/topic modelling algorithsm, including LDA
+4. The categorization dataset is currently not balanced. This has to be addressed (e.g. by upsampling the underrepresented categories or by introducing class weights in the classifier)
+5. Explore a range of values for the text classification model hyperparameters, such as learning rate, batch size and (perhaps most importantly) other SBert models.
+6. It is also woth trying how the model works if the weights of the main Bert model are frozen and only the classifier is trained (i.e. do transfer learning). Given that SBert (supposedly) provides adequate representations of whole sentences, this could happen to work well.
+7. Currently, the SBert model is run twice during inference - once for summarization and then again to predict the category. This can be optimized, we can get the embedding of the selected sentence from the first run and the classifier directly on it.
+8. The training procedure has to be changed to the load data through a generator rather than converting it to tensorflow tensors and then loading all of them at once in memory
+9. A Dockerfile to user run all the stages of the model
 
 References:
 
