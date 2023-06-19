@@ -51,7 +51,8 @@ api.py - a simple rest API which demonstrates how the model can be used for infe
 6. It is also woth trying how the model works if the weights of the main Bert model are frozen and only the classifier is trained (i.e. do transfer learning). Given that SBert (supposedly) provides adequate representations of whole sentences, this could happen to work well.
 7. Currently, the SBert model is run twice during inference - once for summarization and then again to predict the category. This can be optimized, we can get the embedding of the selected sentence from the first run and the classifier directly on it.
 8. The training procedure has to be changed to the load data through a generator rather than converting it to tensorflow tensors and then loading all of them at once in memory. Also, the padding has to be done at batch level, rather than at level of the whole training set (this way the batch sequence length will be determined by the longest sequence in the batch rather than the longest sequence in the training data).
-9. A Dockerfile to user run all the stages of the model
+9. Predicting the test values should be done in batchs to prevent OOM if the test dataset is larger.
+10. A Dockerfile to user run all the stages of the model.
 
 **References:**
 
