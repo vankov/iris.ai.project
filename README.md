@@ -28,9 +28,9 @@ Due to time constraints and lack of computational resources, I trained the text 
 
 The results of running the model on the validation set are displayed below:
 
-![image](https://github.com/vankov/iris.ai.project/assets/6031570/8b5af743-dced-42e8-a73d-9313b1f6313c)
+![image](https://github.com/vankov/iris.ai.project/assets/6031570/c21e7ec2-0f44-4736-810a-8f8191e2253b)
 
-Apparently the results are far from perfect, but this is not suprising given that the the model was trained in a tiny subest of the available data. The "quantum physics" category is undersampled and no intance of it is even present in the validation set.
+Apparently the results are far from perfect, but this is not suprising given that the the model was trained in a tiny subest of the available data. 
 
 Source code description:
 
@@ -53,6 +53,7 @@ api.py - a simple rest API which demonstrates how the model can be used for infe
 8. The training procedure has to be changed to the load data through a generator rather than converting it to tensorflow tensors and then loading all of them at once in memory. Also, the padding has to be done at batch level, rather than at level of the whole training set (this way the batch sequence length will be determined by the longest sequence in the batch rather than the longest sequence in the training data).
 9. Predicting the test values should be done in batchs to prevent OOM if the test dataset is larger.
 10. A Dockerfile to user run all the stages of the model.
+
 
 **References:**
 
