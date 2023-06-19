@@ -33,13 +33,17 @@ The results of running the model on the validation set are displayed below:
 Apparently the results are far from perfect, but this is not suprising given that the the model was trained in a tiny subest of the available data. The "quantum physics" category is undersampled and no intance of it is even present in the validation set.
 
 Source code description:
+
 config.py - contains all the constants (e.g. filenames, sample sizes, seeds, etc) used throughout the project
 process_data.py
+
 process_data.py - prepares the data for categorization - annotates documents with the desired category and summarizes the abstracts using SBert and LexRank
+
 train.py - trains the categorization model
+
 api.py - a simple rest API which demonstrates how the model can be used for inference. If you have uvicorn, you can run it by typing 'uvicorn api:app' in the comamand line
 
-TODO:
+**TODO:**
 1. Run the clustering analysis with a larger sample
 3. Explore other clustering/topic modelling algorithsm, including LDA
 4. The categorization dataset is currently not balanced. This has to be addressed (e.g. by upsampling the underrepresented categories or by introducing class weights in the classifier)
@@ -49,7 +53,7 @@ TODO:
 8. The training procedure has to be changed to the load data through a generator rather than converting it to tensorflow tensors and then loading all of them at once in memory
 9. A Dockerfile to user run all the stages of the model
 
-References:
+**References:**
 
 Blei, D. M. (2012). Probabilistic topic models. In Communications of the ACM (Vol. 55, Issue 4, pp. 77–84). Association for Computing Machinery (ACM). https://doi.org/10.1145/2133806.2133826
 
