@@ -48,7 +48,7 @@ api.py - a simple rest API which demonstrates how the model can be used for infe
 3. Explore other clustering/topic modelling algorithsm, including LDA
 4. The categorization dataset is currently not balanced. This has to be addressed (e.g. by upsampling the underrepresented categories or by introducing class weights in the classifier)
 5. Explore a range of values for the text classification model hyperparameters, such as learning rate, batch size and (perhaps most importantly) other SBert models.
-6. It is also woth trying how the model works if the weights of the main Bert model are frozen and only the classifier is trained (i.e. do transfer learning). Given that SBert (supposedly) provides adequate representations of whole sentences, this could happen to work well.
+6. It is also woth trying how the model works if the weights of the main Bert model are frozen and only the classifier is trained (i.e. do transfer learning). Given that SBert (supposedly) provides adequate representations of whole sentences, this could happen to work well (according to Tunstall et al (2022) this approach allows generalization from few examples).
 7. Currently, the SBert model is run twice during inference - once for summarization and then again to predict the category. This can be optimized, we can get the embedding of the selected sentence from the first run and the classifier directly on it.
 8. The training procedure has to be changed to the load data through a generator rather than converting it to tensorflow tensors and then loading all of them at once in memory. Also, the padding has to be done at batch level, rather than at level of the whole training set (this way the batch sequence length will be determined by the longest sequence in the batch rather than the longest sequence in the training data).
 9. A Dockerfile to user run all the stages of the model.
@@ -63,3 +63,5 @@ Erkan, G., & Radev, D. R. (2004). LexRank: Graph-based Lexical Centrality as Sal
 McInnes, L,& Healy, J, UMAP (2018). Uniform Manifold Approximation and Projection for Dimension Reduction. https://arxiv.org/abs/1802.03426 
 
 Reimers, N., & Gurevych, I. (11 2019). Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing. https://arxiv.org/abs/1908.10084
+
+Tunstall, L., Reimers, N., Jo, U. E. S., Bates, L., Korat, D., Wasserblat, M., & Pereg, O. (2022). Efficient Few-Shot Learning Without Prompts (Version 1). arXiv. https://doi.org/10.48550/ARXIV.2209.11055
