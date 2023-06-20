@@ -64,4 +64,4 @@ McInnes, L,& Healy, J, UMAP (2018). Uniform Manifold Approximation and Projectio
 
 Reimers, N., & Gurevych, I. (11 2019). Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing. https://arxiv.org/abs/1908.10084
 
-Tunstall, L., Reimers, N., Jo, U. E. S., Bates, L., Korat, D., Wasserblat, M., & Pereg, O. (2022). Efficient Few-Shot Learning Without Prompts (Version 1). arXiv. https://doi.org/10.48550/ARXIV.2209.11055
+Tunstall, L., Reimers, N., Jo, U. E. S., Bates, L., Korat, D., Wasserblat, M., & Pereg, O. (2022). Efficient Few-Shot Learning Without Prompts. https://doi.org/10.48550/ARXIV.2209.11055
